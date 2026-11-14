@@ -1,0 +1,37 @@
+import ProductGrid from "@/components/Products/ProductGrid";
+import TypeFilter from "@/components/Products/TypeFilter";
+import { Suspense } from "react";
+
+interface HomeProps {
+  searchParams: Promise<{
+    type?: string;
+    category?: string;
+  }>;
+}
+function HomeInner({ searchParams }: HomeProps) {
+  return (
+    <div className="min-h-screen bg-white max-w-7xl mx-auto px-4 py-8 space-y-6">
+      {/* Combined Header & Filter Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b pb-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">AURA COLLECTION</h1>
+          <p className="text-gray-600 text-sm mt-1">
+            Discover your signature style with our minimal collection. Explore
+            products below:
+          </p>
+        </div>
+        <TypeFilter />
+      </div>
+
+      {/* Product Grid */}
+      <ProductGrid searchParams={searchParams} />
+    </div>
+  );
+}
+export default function Home({ searchParams }: HomeProps) {
+  return (
+    <Suspense>
+      <HomeInner searchParams={searchParams} />
+    </Suspense>
+  );
+}

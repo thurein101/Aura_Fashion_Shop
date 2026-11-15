@@ -14,7 +14,9 @@ export async function getUserOrders(userId: string) {
       userId,
       hiddenFromUserAt: null,
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       total: true,
@@ -45,6 +47,7 @@ export async function getUserOrders(userId: string) {
     })),
   }));
 }
+
 // My Favourites
 export async function getUserFavourites(userId: string) {
   "use cache";
@@ -53,7 +56,9 @@ export async function getUserFavourites(userId: string) {
   cacheLife("minutes");
 
   const favourites = await prisma.productToUser.findMany({
-    where: { userId },
+    where: {
+      userId,
+    },
     select: {
       product: {
         select: {
@@ -64,7 +69,6 @@ export async function getUserFavourites(userId: string) {
           category: true,
           imageUrl: true,
           typeId: true,
-
           type: {
             select: {
               id: true,
@@ -72,7 +76,6 @@ export async function getUserFavourites(userId: string) {
               slug: true,
             },
           },
-
           productVariants: {
             select: {
               id: true,

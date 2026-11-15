@@ -4,6 +4,8 @@
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { revalidateUserOrders } from "@/lib/cache_tag";
+import { getUserFavouriteIds } from "@/lib/data/favourite";
+import { getUserFavourites } from "@/lib/data/my-";
 
 export async function hideUserOrderAction(orderId: string) {
   const session = await getSession();
@@ -52,4 +54,37 @@ export async function clearUserOrdersAction() {
   revalidateUserOrders(session.user.id, true);
 
   return { success: true };
+}
+
+export async function getMyFavouritesAction() {
+  try {
+    const session = await getSession();
+
+    if (!session?.user?.id) {
+      return {
+        success: false as const,
+        unauthorized: true,
+        products: [],
+        error: "Unauthorized",
+      };
+    }
+
+    const products = await getUserFavourites(session.user.id);
+
+    return {
+      success: true as const,
+      unauthorized: false,
+      products,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Get favourites error:", error);
+
+    return {
+      success: false as const,
+      unauthorized: false,
+      products: [],
+      error: "Failed to load favourites",
+    };
+  }
 }

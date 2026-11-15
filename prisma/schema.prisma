@@ -237,6 +237,7 @@ model Order {
   paymentStatus PaymentStatus @default(UNPAID)
   address       String
   contactNumber String
+  hiddenFromUserAt   DateTime?
 
   @@map("order")
 }

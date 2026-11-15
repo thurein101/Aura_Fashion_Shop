@@ -15,7 +15,7 @@ export default function CateBar({ isMobile = false }: CateBarProps) {
 
   const renderLinks = () =>
     VALID_CATEGORIES.map((cat) => {
-      // cat.value က Uppercase ဖြစ်နေနိုင်လို့ (ဥပမာ: "MEN") url/slug အတွက် lowercase သို့ပြောင်းသုံးခြင်း
+      // cat.value က Uppercase ဖြစ်နေနိုင်လို့ (ဥပမာ: "MEN") url/slug အတွက် lowercase သို့ပြောင်းသုံး
       const categoryValue = cat.value.toLowerCase();
       const isActive =
         pathname === "/" && currentCategory?.toLowerCase() === categoryValue;

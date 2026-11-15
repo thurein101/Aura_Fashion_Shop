@@ -1,6 +1,9 @@
+import { Suspense } from "react";
+
+import HomeLoading from "@/components/loading/HomeLoading";
 import FavouritesClient from "@/components/my/MyFav";
 
-export default function FavouritesPage() {
+function FavouritesPageInner() {
   return (
     <main className="container mx-auto min-h-screen px-4 py-8 md:px-6">
       <div className="mb-8">
@@ -15,5 +18,13 @@ export default function FavouritesPage() {
 
       <FavouritesClient />
     </main>
+  );
+}
+
+export default function MainFavPage() {
+  return (
+    <Suspense fallback={<HomeLoading />}>
+      <FavouritesPageInner />
+    </Suspense>
   );
 }

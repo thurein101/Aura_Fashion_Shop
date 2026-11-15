@@ -1,11 +1,13 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 
 import { getSession } from "@/lib/session";
 import { getUserOrders } from "@/lib/data/my-";
 import MyOrdersClient from "@/components/my/My-Orders";
+import { CheckoutSkeleton } from "@/components/loading/checkout";
 
-export default async function MyOrdersPage() {
+async function MyOrdersPageInner() {
   await connection();
 
   const session = await getSession();
@@ -30,5 +32,13 @@ export default async function MyOrdersPage() {
 
       <MyOrdersClient orders={orders} />
     </main>
+  );
+}
+
+export default function MyOrderPage() {
+  return (
+    <Suspense fallback={<CheckoutSkeleton />}>
+      <MyOrdersPageInner />
+    </Suspense>
   );
 }

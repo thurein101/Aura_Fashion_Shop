@@ -1,5 +1,6 @@
 import ProductGrid from "@/components/Products/ProductGrid";
 import TypeFilter from "@/components/Products/TypeFilter";
+import { getProductTypes } from "@/lib/data/product-type";
 import { Suspense } from "react";
 
 interface HomeProps {
@@ -8,7 +9,9 @@ interface HomeProps {
     category?: string;
   }>;
 }
-function HomeInner({ searchParams }: HomeProps) {
+async function HomeInner({ searchParams }: HomeProps) {
+
+   const productTypes = await getProductTypes();
   return (
     <div className="min-h-screen bg-white max-w-7xl mx-auto px-4 py-8 space-y-6">
       {/* Combined Header & Filter Section */}
@@ -20,7 +23,7 @@ function HomeInner({ searchParams }: HomeProps) {
             products below:
           </p>
         </div>
-        <TypeFilter />
+      <TypeFilter productTypes={productTypes} />
       </div>
 
       {/* Product Grid */}

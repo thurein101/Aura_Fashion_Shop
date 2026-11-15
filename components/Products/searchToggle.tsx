@@ -1,84 +1,105 @@
+
 "use client";
 
-import React, { useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, X, Loader2 } from "lucide-react"; 
+import { Search, X, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export default function SearchToggle() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isPending, startTransition] = useTransition(); 
-    const router = useRouter();
-    const searchParams = useSearchParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-    // ၁။ ရိုက်ထည့်နေတဲ့ စာသားကို ခဏသိမ်းထားဖို့ Local State တစ်ခု ဖန်တီးပါမယ်
-    const [searchTerm, setSearchTerm] = useState(searchParams.get("query")?.toString() || "");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-    const handleSearch = (term: string) => {
-        const params = new URLSearchParams(); 
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("query") || ""
+  );
 
-        if (term) {
-            params.set("query", term);
-            startTransition(() => {
-                router.replace(`/?${params.toString()}`);
-            });
-        } else {
-            startTransition(() => {
-                router.replace(`/`);
-            });
-        }
-    };
+  const handleSearch = (term: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const value = term.trim();
 
-    // ၂။ Enter ခေါက်မှ handleSearch ကို အလုပ်လုပ်စေမယ့် Function
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            handleSearch(searchTerm);
-        }
-    };
+    if (value) {
+      params.set("query", value);
+    } else {
+      params.delete("query");
+    }
 
-    return (
-        <div className="relative flex items-center">
-            {!isOpen ? (
+    params.delete("page");
+
+    const query = params.toString();
+
+    startTransition(() => {
+      router.replace(query ? `/?${query}` : "/");
+    });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSearch(searchTerm);
+    if (e.key === "Escape") setIsOpen(false);
+  };
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="rounded-full p-2 text-foreground transition-colors hover:bg-muted/60"
+        aria-label={isOpen ? "Close Search" : "Open Search"}
+        aria-expanded={isOpen}
+      >
+        {isOpen ? (
+          <X className="h-5 w-5" />
+        ) : (
+          <Search className="h-5 w-5" />
+        )}
+      </button>
+
+      {/* Search Bar - Slide Down */}
+      <div
+        className={`
+          absolute left-0 top-full z-50 w-full
+          overflow-hidden border-b border-stone-200/70
+          bg-[#F9F8F6]/95 backdrop-blur-xl
+          transition-all duration-300 ease-in-out
+          ${
+            isOpen
+              ? "max-h-24 translate-y-0 opacity-100"
+              : "max-h-0 -translate-y-2 opacity-0 pointer-events-none"
+          }
+        `}
+      >
+        <div className="mx-auto max-w-7xl px-4 py-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+
+            <Input
+              autoFocus={isOpen}
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="h-11 rounded-xl border-stone-200 bg-white pl-10 pr-10 text-sm shadow-sm"
+            />
+
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              {isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+              ) : (
                 <button
-                    onClick={() => setIsOpen(true)}
-                    className="p-2 rounded-full hover:bg-muted/60 transition-colors text-foreground"
-                    aria-label="Open Search"
+                  type="button"
+                  onClick={() => handleSearch(searchTerm)}
+                  className="text-xs font-semibold text-stone-700 hover:text-orange-600"
                 >
-                    <Search className="w-5 h-5" />
+                  Search
                 </button>
-            ) : (
-                <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
-                    <div className="relative w-64 sm:w-80">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        
-                        <Input
-                            autoFocus
-                            placeholder="Search products..."
-                            value={searchTerm} // ၃။ defaultValue အစား value ပြောင်းသုံးပါမယ်
-                            onChange={(e) => setSearchTerm(e.target.value)} // ၄။ စာရိုက်တိုင်း State ထဲကိုပဲ အရင်ထည့်ထားပါမယ်
-                            onKeyDown={handleKeyDown} // ၅။ Enter ခေါက်မှ တကယ့် Search ကို စလုပ်ပါမယ်
-                            className="w-full pl-9 pr-9 rounded-xl bg-card/80 backdrop-blur-md border-border/60 text-xs"
-                        />
-                        
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                            {isPending ? (
-                                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
-                            ) : (
-                                <button
-                                    onClick={() => {
-                                        setIsOpen(false);
-                                       
-                                    }}
-                                    className="p-1 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                                    aria-label="Close Search"
-                                >
-                                    <X className="w-4 h-4" />
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
+              )}
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </>
+  );
 }

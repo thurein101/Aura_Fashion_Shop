@@ -30,8 +30,7 @@ export default function ProductCard({
       <Card className="group relative h-full overflow-hidden rounded-xl border border-border/60 bg-card p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
 
         {/* Product Image */}
-       <div className="relative aspect-[1/1] w-full overflow-hidden bg-muted/30">
-
+        <div className="relative aspect-[4/5] sm:aspect-square w-full overflow-hidden bg-muted/30">
           <Link
             href={`/products/${product.slug}`}
             className="absolute inset-0"
@@ -46,24 +45,23 @@ export default function ProductCard({
             />
           </Link>
 
-          {/* Image Overlay */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/5" />
 
           {/* Category */}
-          <div className="absolute left-2.5 top-2.5 z-10">
-            <span className="rounded-md border border-white/20 bg-white/90 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-neutral-800 shadow-sm backdrop-blur-md">
+          <div className="absolute left-2 top-2 sm:left-2.5 sm:top-2.5 z-10">
+            <span className="rounded-md border border-white/20 bg-white/90 px-2 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-neutral-800 shadow-sm backdrop-blur-md">
               {getCategoryLabel(product.category)}
             </span>
           </div>
 
           {/* Favourite */}
           <div
-            className="absolute right-2.5 top-2.5 z-10"
+            className="absolute right-2 top-2 sm:right-2.5 sm:top-2.5 z-10"
             onClick={(e) => e.stopPropagation()}
           >
             <FavouriteBtn
               productId={product.id}
-              className="h-8 w-8 rounded-full border border-white/30 bg-white/90 text-neutral-800 shadow-sm backdrop-blur-md transition-transform hover:scale-105 hover:bg-white"
+              className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-white/30 bg-white/90 text-neutral-800 shadow-sm backdrop-blur-md transition-transform hover:scale-105 hover:bg-white"
             />
           </div>
         </div>
@@ -74,29 +72,29 @@ export default function ProductCard({
           className="flex flex-col gap-2 p-3 sm:p-3.5"
         >
           {/* Product Name */}
-          <h3 className="line-clamp-1 text-xs font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-sm">
+          <h3 className="line-clamp-2 min-h-9 text-sm font-semibold leading-5 tracking-tight text-foreground transition-colors group-hover:text-primary sm:line-clamp-1 sm:min-h-0 sm:text-sm">
             {product.name}
           </h3>
 
           {/* Price & Sizes */}
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-sm font-extrabold tracking-tight text-foreground sm:text-base">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-base font-extrabold tracking-tight text-foreground sm:text-base">
               {formatPrice(product.price)}
             </span>
 
             {sizes.length > 0 && (
               <div className="flex items-center gap-1">
-                {sizes.slice(0, 3).map((size, idx) => (
+                {sizes.slice(0, 3).map((size) => (
                   <span
-                    key={idx}
-                    className="rounded border border-border/60 bg-muted/50 px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground"
+                    key={size}
+                    className="rounded border border-border/60 bg-muted/50 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
                   >
                     {size}
                   </span>
                 ))}
 
                 {sizes.length > 3 && (
-                  <span className="text-[9px] font-medium text-muted-foreground">
+                  <span className="text-[10px] font-medium text-muted-foreground">
                     +{sizes.length - 3}
                   </span>
                 )}

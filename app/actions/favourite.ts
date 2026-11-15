@@ -44,6 +44,7 @@ export async function toggleFavouriteAction(input: unknown) {
       revalidateUserFavourites(session.user.id, true);
       revalidatePath("/", "layout");
       revalidatePath("/products", "layout");
+      revalidatePath("/favourites","layout")
       return { success: true, data: { isFavorited: false } };
     } else {
       // မရှိသေးရင် အသစ်ထည့်မည် (Favourite)

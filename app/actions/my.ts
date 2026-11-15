@@ -70,7 +70,7 @@ export async function getMyFavouritesAction() {
     }
 
     const products = await getUserFavourites(session.user.id);
-
+ 
     return {
       success: true as const,
       unauthorized: false,

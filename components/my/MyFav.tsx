@@ -35,6 +35,7 @@ export default function FavouritesClient() {
         }
 
         setProducts(result.products);
+       
       } catch (error) {
         console.error(error);
 

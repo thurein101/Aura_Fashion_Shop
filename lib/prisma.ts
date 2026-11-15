@@ -1,5 +1,5 @@
 
-import { PrismaClient } from "./generated/prisma";
+import { PrismaClient } from "@/lib/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 

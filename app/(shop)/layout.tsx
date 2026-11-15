@@ -23,9 +23,9 @@ async function ShopShell({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   await connection();
 
-  const favouriteIds = session?.user?.id
-    ? await getUserFavouriteIds(session.user.id)
-    : [];
+const favouriteIds = session?.user?.id
+  ? await getUserFavouriteIds(session.user.id)
+  : [];
 
   return (
     <FavouriteProvider

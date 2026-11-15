@@ -2,7 +2,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "../../lib/generated/prisma";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { getSession } from "@/lib/session";
 import { checkoutSchema } from "@/lib/validation/checkout";
 import { revalidateUserOrders } from "@/lib/cache_tag";

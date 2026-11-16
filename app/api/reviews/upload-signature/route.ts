@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
 import { uploadSignatureSchema } from "@/lib/validation/review";
 
-export const runtime = "nodejs";
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -68,10 +68,10 @@ export async function POST(req: NextRequest) {
       signature,
     });
   } catch (error) {
-    console.error("Review upload signature error:", error);
+    console.error("Review upload signature:", error);
 
     return NextResponse.json(
-      { error: "Unable to prepare image upload" },
+      { error: "Unable to create upload signature" },
       { status: 500 }
     );
   }

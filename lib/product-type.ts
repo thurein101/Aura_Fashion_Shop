@@ -87,3 +87,42 @@ export type CartResult =
       success: false;
       error: string;
     };
+
+
+    //review
+export type ReviewImage = {
+  publicId: string;
+  url: string;
+};
+
+export type ProductReviewItem = {
+  id: string;
+  rating: number | null;
+  comment: string;
+  imageUrls: string[];
+  imagePublicIds: string[];
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+  };
+};
+
+export type ReviewPageResult = {
+  reviews: ProductReviewItem[];
+  totalCount: number;
+  averageRating: number | null;
+  ratedCount: number;
+  ratingCounts: Record<number, number>;
+  nextCursor: string | null;
+  hasMore: boolean;
+};
+
+export type ReviewFormValues = {
+  comment: string;
+  rating: number | null;
+  images: ReviewImage[];
+};

@@ -129,7 +129,7 @@ export async function getCartCountAction() {
   try {
     const session = await getSession();
 
-    //use မရှိရင်တော့ ဘလိုအခြေနေပဲဖြစ်" customer ကိုကိုစားမပြုလို့ 0ပဲပြသင့်တယ် 
+    //user မရှိရင်တော့ ဘလိုအခြေနေပဲဖြစ်" customer ကိုကိုစားမပြုလို့ 0ပဲပြသင့်တယ် 
     if (!session?.user) {
       return { success: true, count: 0 };
     }

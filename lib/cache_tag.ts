@@ -6,6 +6,7 @@ export const CACHE_TAGS = {
   product: (slug: string) => `product-${slug}`,
   favourites: (userId: string) => `favourites-${userId}`,
   orders: (userId: string) => `orders-${userId}`,
+  reviews: (productId: string) => `reviews-${productId}`,
 } as const;
 
 function invalidateCacheTag(tag: string, immediate = false) {
@@ -23,4 +24,8 @@ export function revalidateUserFavourites(userId: string, immediate = false) {
 
 export function revalidateUserOrders(userId: string, immediate = false) {
   invalidateCacheTag(CACHE_TAGS.orders(userId), immediate);
+}
+
+export function revalidateProductReviews(productId: string) {
+  updateTag(CACHE_TAGS.reviews(productId));
 }

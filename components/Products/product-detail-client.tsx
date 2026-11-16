@@ -11,6 +11,7 @@ import { ShoppingCart, LoaderCircle } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { addToCartAction } from "@/app/actions/cart";
 import { toast } from "sonner";
+import ProductReviews from "@/components/Products/ProductReview";
 
 type ProductDetailClientProps = {
   product: ProductDetail | null;
@@ -286,6 +287,9 @@ export default function ProductDetailClient({
           </Button>
         </div>
       </div>
+
+       {/* Customer Reviews */}
+    <ProductReviews productId={product.id} />
     </main>
   );
 }

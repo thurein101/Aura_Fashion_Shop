@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
- 
   images: {
     remotePatterns: [
       {
@@ -39,6 +38,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "via.placeholder.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
       },
     ],
   },

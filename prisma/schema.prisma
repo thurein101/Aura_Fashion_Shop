@@ -263,22 +263,23 @@ model OrderItem {
 }
 
 model Review {
-  id      String  @id @default(cuid())
-  rating  Int //for star 
-  comment String? @db.Text
+  id              String   @id @default(cuid())
+  rating          Int?
+  comment         String   @db.Text
 
-  imageUrls String[]
+  imageUrls       String[] @default([])
+  imagePublicIds  String[] @default([])
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@unique([userId, productId])
-  @@index([productId])
+  @@index([productId, createdAt])
   @@map("review")
 }

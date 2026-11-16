@@ -40,7 +40,7 @@ export default function FavouriteBtn({
     const previousFavourite = favorited;
     const newFavState = !previousFavourite;
 
-    // ၁။ UI ကို ချက်ချင်း အပြောင်းအလဲလုပ်မည် (Optimistic Update)
+    // UI ကို ချက်ချင်း အပြောင်းအလဲလုပ်မည် (Optimistic Update)
     setFavourite(productId, newFavState);
 
     startTransition(async () => {

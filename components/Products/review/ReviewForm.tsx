@@ -49,6 +49,7 @@ export default function ReviewForm({
   submitLabel,
   isPending = false,
   onSubmit,
+  onImagesChange,
 }: Props) {
   const form = useForm<ReviewFormValues>({
     resolver: zodResolver(reviewFormSchema),
@@ -199,7 +200,3 @@ export default function ReviewForm({
     </Form>
   );
 }
-function onImagesChange(nextImages: ReviewImage[]) {
-    throw new Error("Function not implemented.");
-}
-

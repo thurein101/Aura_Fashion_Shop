@@ -57,15 +57,26 @@ export default function ReviewEditDialog({
     })),
   };
 
-  const handleOpenChange = async (nextOpen: boolean) => {
-    if (!nextOpen && !isPending) {
-      await cleanupUnusedReviewImagesAction({
-        publicIds: currentImages.map((image) => image.publicId),
-      });
-    }
+ const handleOpenChange = (nextOpen: boolean) => {
+  // Open immediately
+  if (nextOpen) {
+    setOpen(true);
+    return;
+  }
 
-    setOpen(nextOpen);
-  };
+  // Prevent closing while saving
+  if (isPending) return;
+
+  // Close immediately — do not wait for Cloudinary cleanup
+  setOpen(false);
+
+  // Run cleanup in the background
+  void cleanupUnusedReviewImagesAction({
+    publicIds: currentImages.map((image) => image.publicId),
+  }).catch((error) => {
+    console.error("Review image cleanup failed:", error);
+  });
+};
 
   const handleSubmit = async (values: ReviewFormValues) => {
     setIsPending(true);

@@ -21,7 +21,28 @@ if (process.env.NODE_ENV === "production") {
       "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:;",
   });
 }
+//for cloudinary
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' blob: data: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https://api.cloudinary.com",
+  "frame-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
 
+if (process.env.NODE_ENV === "production") {
+  securityHeaders.push({
+    key: "Content-Security-Policy",
+    value: csp,
+  });
+
+  
+}
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,

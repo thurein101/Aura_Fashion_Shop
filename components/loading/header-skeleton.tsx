@@ -1,39 +1,36 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function HomeLoading() {
+const main = "bg-[#DED7CC]";
+const light = "bg-[#E9E3DA]";
+
+export default function HeaderLoading() {
   return (
-    <div className="mx-auto min-h-screen w-full max-w-7xl space-y-6 bg-[#F9F8F6] px-4 py-8">
-      {/* Header & Filter */}
-      <div className="flex flex-col items-start justify-between gap-4 border-b border-[#E8E1D7] pb-6 sm:flex-row sm:items-end">
-        <div className="space-y-3">
-          <Skeleton className="h-9 w-64 rounded-lg bg-[#DED7CC]" />
-          <Skeleton className="h-4 w-96 max-w-full bg-[#E9E3DA]" />
+    <header className="sticky top-0 z-40 h-14 w-full border-b border-[#E8E1D7] bg-[#F9F8F6] px-3 sm:h-16 sm:px-6">
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-3">
+        {/* Logo */}
+        <div className="flex shrink-0 items-center">
+          <Skeleton className={`h-7 w-24 rounded-lg sm:h-8 sm:w-28 ${main}`} />
         </div>
 
-        <div className="flex gap-2">
-          <Skeleton className="h-10 w-20 rounded-full bg-[#DED7CC]" />
-          <Skeleton className="h-10 w-20 rounded-full bg-[#DED7CC]" />
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-5 md:flex lg:gap-8">
+          <Skeleton className={`h-4 w-12 ${main}`} />
+          <Skeleton className={`h-4 w-16 ${main}`} />
+          <Skeleton className={`h-4 w-12 ${main}`} />
+          <Skeleton className={`h-4 w-24 ${main}`} />
+        </nav>
+
+        {/* Actions */}
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4 md:gap-5">
+          <Skeleton className={`size-8 rounded-full sm:size-9 ${main}`} />
+
+          <Skeleton className={`hidden size-9 rounded-full sm:block ${light}`} />
+
+          {/* Mobile Menu */}
+          <Skeleton className={`size-8 rounded-lg md:hidden sm:size-9 ${main}`} />
         </div>
       </div>
-
-      {/* Product Grid */}
-      <div className="grid grid-cols-2 gap-4 pb-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className="space-y-4 rounded-2xl border border-[#E8E1D7] bg-white p-3 shadow-sm sm:p-4"
-          >
-            <Skeleton className="h-48 w-full rounded-xl bg-[#DED7CC] sm:h-64" />
-
-            <div className="space-y-3">
-              <Skeleton className="h-4 w-3/4 bg-[#DED7CC]" />
-              <Skeleton className="h-4 w-1/2 bg-[#E9E3DA]" />
-              <Skeleton className="h-5 w-1/3 bg-[#D2C8B9]" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </header>
   );
 }

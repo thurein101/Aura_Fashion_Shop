@@ -25,6 +25,13 @@ type TypeFilterProps = {
 
 const VISIBLE_LIMIT = 4;
 
+const dropdownAnimation =
+  "data-[state=open]:animate-in data-[state=closed]:animate-out " +
+  "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 " +
+  "data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 " +
+  "data-[state=open]:slide-in-from-top-3 data-[state=closed]:slide-out-to-top-2 " +
+  "duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+
 export default function TypeFilter({ productTypes }: TypeFilterProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -66,7 +73,7 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
       {/* Desktop Filter */}
       <nav
         aria-label="Product types"
-        className="hidden sm:flex flex-wrap items-center gap-2.5 bg-[#F9F8F6]"
+        className="hidden flex-wrap items-center gap-2.5 bg-[#F9F8F6] sm:flex"
       >
         <Link
           href={getHref(null)}
@@ -74,7 +81,7 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
           aria-current={!activeType ? "page" : undefined}
           className={filterClass(!activeType)}
         >
-          All 
+          All
         </Link>
 
         {visibleTypes.map((type) => {
@@ -117,13 +124,14 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
 
             <DropdownMenuContent
               align="start"
-              className="min-w-40 border-[#E9E4DC] bg-[#FDFCFB] p-1.5 shadow-lg"
+              sideOffset={10}
+              className={`min-w-40 origin-top border-[#E9E4DC] bg-[#FDFCFB] p-1.5 shadow-lg ${dropdownAnimation}`}
             >
               {moreTypes.map((type) => (
                 <DropdownMenuItem
                   key={type.id}
                   asChild
-                  className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+                  className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 transition-colors duration-200 focus:bg-orange-50 focus:text-orange-700"
                 >
                   <Link href={getHref(type.slug)} scroll={false}>
                     {type.name}
@@ -141,7 +149,7 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="h-12 w-full justify-between rounded-xl border-[#E9E4DC] bg-white text-stone-800 shadow-none hover:border-orange-300 hover:bg-orange-50"
+              className="h-12 w-full justify-between rounded-xl border-[#E9E4DC] bg-white text-stone-800 shadow-none transition-colors duration-300 hover:border-orange-300 hover:bg-orange-50"
             >
               <span className="text-xs font-semibold uppercase tracking-[0.12em]">
                 {activeProductType?.name ?? "All Products"}
@@ -152,11 +160,12 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
 
           <DropdownMenuContent
             align="start"
-            className="w-[var(--radix-dropdown-menu-trigger-width)] border-[#E9E4DC] bg-[#FDFCFB] p-1.5"
+            sideOffset={8}
+            className={`w-[var(--radix-dropdown-menu-trigger-width)] origin-top border-[#E9E4DC] bg-[#FDFCFB] p-1.5 shadow-lg ${dropdownAnimation}`}
           >
             <DropdownMenuItem
               asChild
-              className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+              className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 transition-colors duration-200 focus:bg-orange-50 focus:text-orange-700"
             >
               <Link href={getHref(null)} scroll={false}>
                 All
@@ -167,7 +176,7 @@ export default function TypeFilter({ productTypes }: TypeFilterProps) {
               <DropdownMenuItem
                 key={type.id}
                 asChild
-                className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+                className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 transition-colors duration-200 focus:bg-orange-50 focus:text-orange-700"
               >
                 <Link href={getHref(type.slug)} scroll={false}>
                   {type.name}

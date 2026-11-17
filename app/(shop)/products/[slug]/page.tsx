@@ -2,9 +2,10 @@ import ProductDetailSkeleton from "@/components/loading/detail-skeleton";
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react"; 
+import { notFound } from "next/navigation";
 
-import { getProductBySlug } from "@/lib/products";
-import { ProductDetail, ProductVariantListItem } from "@/lib/product-type";
+import { getProductBySlug , getRecommendedProducts} from "@/lib/products";
+import { ProductDetail } from "@/lib/product-type";
 import ProductDetailClient from "@/components/Products/product-detail-client";
 
 
@@ -17,6 +18,15 @@ async function ProductDetailInner({ params }: DetailProps) {
   const { slug } = await params;
   const rawProduct = await getProductBySlug(slug);
  const product = (Array.isArray(rawProduct) ? rawProduct[0] : rawProduct) as ProductDetail | null;
+
+    if (!product) notFound();
+
+   // Fetch recommendations
+  const recommendedProducts = await getRecommendedProducts(
+    product.id,
+    product.category,
+    product.typeId,
+  );
 
 
   return <div className="container mx-auto px-4 py-2 max-w-7xl space-y-6">
@@ -31,7 +41,8 @@ async function ProductDetailInner({ params }: DetailProps) {
 
       {/* Main Content */}
       <div>
-        <ProductDetailClient product={product} />
+        <ProductDetailClient product={product} recommendedProducts={recommendedProducts}
+ />
       </div>
     </div>
 }

@@ -13,9 +13,9 @@ async function HomeInner({ searchParams }: HomeProps) {
 
    const productTypes = await getProductTypes();
   return (
-    <div className="min-h-screen bg-white max-w-7xl mx-auto px-4 py-8 space-y-6">
+    <div className="min-h-screen max-w-7xl mx-auto px-4 py-8 space-y-6 ">
       {/* Combined Header & Filter Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b pb-6 bg-[#F9F8F6]">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">AURA COLLECTION</h1>
           <p className="text-gray-600 text-sm mt-1">

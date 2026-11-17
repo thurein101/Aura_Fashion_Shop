@@ -1,54 +1,45 @@
-import { Skeleton } from "@/components/ui/skeleton"
+
+import { Skeleton } from "@/components/ui/skeleton";
+
+const main = "bg-[#DED7CC]";
+const light = "bg-[#E9E3DA]";
 
 export function FormSkeleton() {
   return (
-    <div className="w-full">
-      
-      {/* Header Skeleton */}
-      <div className="flex flex-col items-center md:items-start mb-8 space-y-2">
-        <Skeleton className="h-8 w-48 bg-stone-200/60" />
-        <Skeleton className="h-3 w-64 bg-stone-200/60" />
+    <div className="w-full rounded-2xl bg-[#F9F8F6]">
+      <div className="mb-8 flex flex-col items-center space-y-3 md:items-start">
+        <Skeleton className={`h-8 w-48 rounded-lg ${main}`} />
+        <Skeleton className={`h-3 w-64 ${light}`} />
       </div>
 
-      {/* Form Fields Skeleton */}
-      <div className="space-y-4">
-        
-        {/* Full Name Field */}
+      <div className="space-y-5">
         <div className="space-y-2">
-          <Skeleton className="h-3 w-20 bg-stone-200/60" />
-          <Skeleton className="h-11 w-full rounded-md bg-stone-200/60" />
+          <Skeleton className={`h-3 w-24 ${main}`} />
+          <Skeleton className={`h-12 w-full rounded-lg ${main}`} />
         </div>
 
-        {/* Email Field */}
         <div className="space-y-2">
-          <Skeleton className="h-3 w-16 bg-stone-200/60" />
-          <Skeleton className="h-11 w-full rounded-md bg-stone-200/60" />
+          <Skeleton className={`h-3 w-20 ${main}`} />
+          <Skeleton className={`h-12 w-full rounded-lg ${main}`} />
         </div>
 
-        {/* Password & Confirm Password (Grid) */}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Skeleton className="h-3 w-20 bg-stone-200/60" />
-            <Skeleton className="h-11 w-full rounded-md bg-stone-200/60" />
+            <Skeleton className={`h-3 w-24 ${main}`} />
+            <Skeleton className={`h-12 w-full rounded-lg ${main}`} />
           </div>
           <div className="space-y-2">
-            <Skeleton className="h-3 w-16 bg-stone-200/60" />
-            <Skeleton className="h-11 w-full rounded-md bg-stone-200/60" />
+            <Skeleton className={`h-3 w-20 ${main}`} />
+            <Skeleton className={`h-12 w-full rounded-lg ${main}`} />
           </div>
         </div>
 
-        {/* Submit Button Skeleton */}
-        <div className="pt-2">
-          <Skeleton className="h-11 w-full rounded-full bg-stone-300/60" />
-        </div>
-
+        <Skeleton className="mt-3 h-12 w-full rounded-full bg-[#D2C8B9]" />
       </div>
 
-      {/* Footer Link Skeleton */}
-      <div className="flex justify-center pt-6">
-        <Skeleton className="h-3 w-48 bg-stone-200/60" />
+      <div className="flex justify-center pt-7">
+        <Skeleton className={`h-3 w-48 ${light}`} />
       </div>
-
     </div>
-  )
+  );
 }

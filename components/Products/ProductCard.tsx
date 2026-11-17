@@ -27,7 +27,7 @@ export default function ProductCard({
       transition={{ duration: 0.25, ease: "easeOut" }}
       className="h-full"
     >
-      <Card className="group relative h-full overflow-hidden rounded-xl border border-border/60 bg-card p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
+      <Card className="group relative h-full overflow-hidden rounded-xl border border-border/60 bg-[#F9F8F6] p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
 
         {/* Product Image */}
         <div className="relative aspect-[4/5] sm:aspect-square w-full overflow-hidden bg-muted/30">

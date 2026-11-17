@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function HomeLoading() {
   return (
-    <div className="min-h-screen bg-white w-full max-w-7xl mx-auto px-4 py-8 space-y-6">
+    <div className="min-h-screen bg-white w-full max-w-7xl mx-auto px-4 py-8 space-y-6 bg-[#F9F8F6]">
       
       {/* Header & Filter Section Skeleton */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b pb-6">

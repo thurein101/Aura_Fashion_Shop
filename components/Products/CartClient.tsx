@@ -112,7 +112,7 @@ export default function CartClient({ cart }: { cart: CartItem[] }) {
   // Empty cart
   if (cartItems.length === 0) {
     return (
-      <div className="py-24 flex flex-col items-center text-center">
+      <div className="py-24 flex flex-col items-center text-center bg-[#F9F8F6]">
         <ShoppingBag size={42} className="text-muted-foreground mb-5" />
 
         <h2 className="text-xl font-semibold">Your cart is empty</h2>

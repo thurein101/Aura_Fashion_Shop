@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useTransition } from "react";
 import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
-import { ProductDetail } from "@/lib/product-type";
+import { ProductDetail, ProductListItem } from "@/lib/product-type";
 import { formatPrice } from "@/lib/utils";
 import FavouriteBtn from "@/components/Products/FavBth";
 import { Button } from "../ui/button";
@@ -12,13 +12,16 @@ import { useSession } from "@/lib/auth-client";
 import { addToCartAction } from "@/app/actions/cart";
 import { toast } from "sonner";
 import ProductReviews from "@/components/Products/ProductReview";
+import YouMayAlsoLike from "./You-may";
 
 type ProductDetailClientProps = {
   product: ProductDetail | null;
+  recommendedProducts: ProductListItem[];
 };
 
 export default function ProductDetailClient({
   product,
+  recommendedProducts,
 }: ProductDetailClientProps) {
   if (!product) notFound();
 
@@ -110,7 +113,7 @@ export default function ProductDetailClient({
   const displayImage = selectedVariant?.ImageUrl ?? product.imageUrl;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-10">
+    <main className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-10 bg-[#F9F8F6]">
       <div className="grid grid-cols-1 items-start gap-7 md:grid-cols-[1.05fr_0.95fr] md:gap-10 lg:gap-14">
         {/* Product Image */}
         <div className="mx-auto w-full max-w-[400px]">
@@ -290,6 +293,8 @@ export default function ProductDetailClient({
 
        {/* Customer Reviews */}
     <ProductReviews productId={product.id} />
+
+    <YouMayAlsoLike products={recommendedProducts} />
     </main>
   );
 }

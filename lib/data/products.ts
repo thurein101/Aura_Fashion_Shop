@@ -3,6 +3,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { CategoryValue } from "@/lib/utils";
 import { CACHE_TAGS } from "../cache_tag";
 import { queryProductPage, queryProductSingleDetail } from "../quiries/product-page";
+import { queryRecommendedProducts } from "../quiries/product-recommendation";
 
 export async function getProductPage(
     category?: CategoryValue | null,
@@ -35,4 +36,16 @@ export async function getProductBySlug(slug: string) {
     ...product,
     price: product.price.toString(),
   };
+}
+
+export async function getRecommendedProducts(
+  productId: string,
+  category: string,
+  typeId: string | null,
+) {
+  return queryRecommendedProducts(
+    productId,
+    category,
+    typeId,
+  );
 }

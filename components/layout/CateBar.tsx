@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -15,10 +16,12 @@ export default function CateBar({ isMobile = false }: CateBarProps) {
 
   const renderLinks = () =>
     VALID_CATEGORIES.map((cat) => {
-      // cat.value က Uppercase ဖြစ်နေနိုင်လို့ (ဥပမာ: "MEN") url/slug အတွက် lowercase သို့ပြောင်းသုံး
       const categoryValue = cat.value.toLowerCase();
+
       const isActive =
-        pathname === "/" && currentCategory?.toLowerCase() === categoryValue;
+        pathname === "/" &&
+        currentCategory?.toLowerCase() === categoryValue;
+
       const href = `/?category=${categoryValue}`;
 
       if (isMobile) {
@@ -26,13 +29,21 @@ export default function CateBar({ isMobile = false }: CateBarProps) {
           <Link
             key={cat.value}
             href={href}
-            className={`snap-start whitespace-nowrap text-[11px] font-bold tracking-widest uppercase transition-colors duration-200 ${
+            scroll={false}
+            aria-current={isActive ? "page" : undefined}
+            className={`relative snap-start whitespace-nowrap pb-2 text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors duration-300 ${
               isActive
-                ? "text-orange-600 font-black underline underline-offset-4"
-                : "text-stone-500 hover:text-stone-900"
+                ? "font-bold text-orange-600"
+                : "text-stone-500 hover:text-orange-600"
             }`}
           >
             {cat.label}
+
+            <span
+              className={`absolute bottom-0 left-0 h-[2px] rounded-full bg-orange-600 transition-all duration-300 ${
+                isActive ? "w-full" : "w-0"
+              }`}
+            />
           </Link>
         );
       }
@@ -41,15 +52,18 @@ export default function CateBar({ isMobile = false }: CateBarProps) {
         <Link
           key={cat.value}
           href={href}
-          className={`group relative text-sm font-bold transition-colors duration-300 py-2 tracking-widest uppercase ${
+          scroll={false}
+          aria-current={isActive ? "page" : undefined}
+          className={`group relative py-2 text-[12px] font-semibold tracking-[0.15em] uppercase transition-colors duration-300 ${
             isActive
-              ? "text-stone-900 font-black"
-              : "text-stone-500 hover:text-stone-900"
+              ? "text-orange-600"
+              : "text-stone-600 hover:text-orange-600"
           }`}
         >
           {cat.label}
+
           <span
-            className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-stone-900 transition-all duration-300 ease-out rounded-full ${
+            className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-orange-600 transition-all duration-300 ease-out ${
               isActive ? "w-full" : "w-0 group-hover:w-full"
             }`}
           />
@@ -59,13 +73,21 @@ export default function CateBar({ isMobile = false }: CateBarProps) {
 
   if (isMobile) {
     return (
-      <nav className="flex overflow-x-auto snap-x py-3 px-4 gap-6 [&::-webkit-scrollbar]:hidden">
+      <nav
+        aria-label="Product categories"
+        className="flex snap-x snap-mandatory items-center gap-7 overflow-x-auto bg-[#F9F8F6] px-4 py-3 [&::-webkit-scrollbar]:hidden"
+      >
         {renderLinks()}
       </nav>
     );
   }
 
   return (
-    <nav className="hidden md:flex items-center gap-8">{renderLinks()}</nav>
+    <nav
+      aria-label="Product categories"
+      className="hidden items-center gap-8 md:flex"
+    >
+      {renderLinks()}
+    </nav>
   );
 }

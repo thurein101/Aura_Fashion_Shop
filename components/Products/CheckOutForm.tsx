@@ -149,7 +149,7 @@ export function CheckoutForm({ cart }: CheckoutFormProps) {
   return (
     <>
       {isPending && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm ">
           <div className="flex flex-col items-center gap-4 rounded-2xl bg-white px-8 py-7 shadow-xl">
             <div className="size-11 animate-spin rounded-full border-4 border-slate-200 border-t-slate-800" />
 
@@ -173,7 +173,7 @@ export function CheckoutForm({ cart }: CheckoutFormProps) {
         className="grid items-start gap-6 lg:grid-cols-3 lg:gap-8"
       >
         {/* Checkout Fields */}
-        <div className="space-y-5 lg:col-span-2">
+        <div className="space-y-5 lg:col-span-2 bg-[#F9F8F6]">
           <CheckoutFields
             values={values}
             errors={errors}

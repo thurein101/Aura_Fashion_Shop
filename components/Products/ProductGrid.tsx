@@ -25,7 +25,7 @@ async function ProductGridInner({ searchParams }: ProductGridProps) {
     : null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <p className="text-sm text-stone-600">
         Selected Category:{" "}
         <span className="font-bold">{selectedCategory || "All"}</span>

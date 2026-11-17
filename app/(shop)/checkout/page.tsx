@@ -16,7 +16,7 @@ async function CheckoutPageInner() {
   }
 
   return (
-    <main className="container mx-auto max-w-6xl px-4 py-10">
+    <main className="container mx-auto max-w-6xl px-4 py-10 bg-[#F9F8F6]">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">
           Checkout

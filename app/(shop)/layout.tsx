@@ -9,6 +9,7 @@ import HomeLoading from "@/components/loading/HomeLoading";
 import { FavouriteProvider } from "@/components/Products/providers/Fav-Provider";
 import { getUserFavouriteIds } from "@/lib/data/favourite";
 import { Toaster } from "sonner";
+import Footer from "@/components/Footer";
 
 function Loading() {
   return (
@@ -32,13 +33,15 @@ const favouriteIds = session?.user?.id
       initialFavouriteIds={favouriteIds}
       key={session?.user.id}
     >
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-[#F9F8F6]">
         <ShopHeader />
 
-        <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8 bg-[#F9F8F6] ">
           {children}
         </main>
+          <Footer/>
         <Toaster richColors position="top-center" />
+      
       </div>
     </FavouriteProvider>
   );

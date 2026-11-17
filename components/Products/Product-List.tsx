@@ -119,7 +119,7 @@ function ProductList({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-[#F9F8F6]">
       <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
         {items.map((product) => (
           <ProductCard key={product.id} product={product} />

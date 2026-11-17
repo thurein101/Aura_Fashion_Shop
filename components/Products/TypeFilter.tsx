@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -24,9 +25,7 @@ type TypeFilterProps = {
 
 const VISIBLE_LIMIT = 4;
 
-export default function TypeFilter({
-  productTypes,
-}: TypeFilterProps) {
+export default function TypeFilter({ productTypes }: TypeFilterProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
@@ -53,28 +52,29 @@ export default function TypeFilter({
     return query ? `${pathname}?${query}` : pathname;
   }
 
+  const filterClass = (isActive: boolean) =>
+    `rounded-full border px-5 py-2.5 text-[11px] font-semibold
+    tracking-[0.14em] uppercase transition-all duration-300
+    ${
+      isActive
+        ? "border-orange-600 bg-orange-600 text-white shadow-sm shadow-orange-600/15"
+        : "border-[#E9E4DC] bg-white/70 text-stone-600 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700"
+    }`;
+
   return (
     <>
       {/* Desktop Filter */}
       <nav
         aria-label="Product types"
-        className="hidden sm:flex flex-wrap items-center gap-2"
+        className="hidden sm:flex flex-wrap items-center gap-2.5 bg-[#F9F8F6]"
       >
         <Link
           href={getHref(null)}
           scroll={false}
           aria-current={!activeType ? "page" : undefined}
-          className={`
-            rounded-full px-4 py-2.5 text-xs font-bold
-            tracking-widest uppercase transition-all
-            ${
-              !activeType
-                ? "bg-stone-900 text-white shadow-sm"
-                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-            }
-          `}
+          className={filterClass(!activeType)}
         >
-          All
+          All 
         </Link>
 
         {visibleTypes.map((type) => {
@@ -86,15 +86,7 @@ export default function TypeFilter({
               href={getHref(type.slug)}
               scroll={false}
               aria-current={isActive ? "page" : undefined}
-              className={`
-                rounded-full px-4 py-2.5 text-xs font-bold
-                tracking-widest uppercase transition-all
-                ${
-                  isActive
-                    ? "bg-stone-900 text-white"
-                    : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-                }
-              `}
+              className={filterClass(isActive)}
             >
               {type.name}
             </Link>
@@ -107,24 +99,32 @@ export default function TypeFilter({
               <Button
                 variant="outline"
                 className={`
-                  rounded-full border-0 px-4 py-2.5 h-auto
-                  text-xs font-bold tracking-widest uppercase
+                  h-auto rounded-full border px-5 py-2.5
+                  text-[11px] font-semibold tracking-[0.14em] uppercase
+                  transition-all duration-300
                   ${
                     moreTypes.some((type) => type.slug === activeType)
-                      ? "bg-stone-900 text-white hover:bg-stone-800 hover:text-white"
-                      : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                      ? "border-orange-600 bg-orange-600 text-white hover:bg-orange-700 hover:text-white"
+                      : "border-[#E9E4DC] bg-white/70 text-stone-600 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700"
                   }
                 `}
               >
                 {moreTypes.find((type) => type.slug === activeType)?.name ??
                   "More"}
-                <span className="ml-2">⌄</span>
+                <span className="ml-2 text-sm">⌄</span>
               </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent
+              align="start"
+              className="min-w-40 border-[#E9E4DC] bg-[#FDFCFB] p-1.5 shadow-lg"
+            >
               {moreTypes.map((type) => (
-                <DropdownMenuItem key={type.id} asChild>
+                <DropdownMenuItem
+                  key={type.id}
+                  asChild
+                  className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+                >
                   <Link href={getHref(type.slug)} scroll={false}>
                     {type.name}
                   </Link>
@@ -136,29 +136,39 @@ export default function TypeFilter({
       </nav>
 
       {/* Mobile Filter */}
-      <div className="sm:hidden w-full">
+      <div className="w-full sm:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="w-full justify-between rounded-full border-stone-200"
+              className="h-12 w-full justify-between rounded-xl border-[#E9E4DC] bg-white text-stone-800 shadow-none hover:border-orange-300 hover:bg-orange-50"
             >
-              <span className="font-semibold uppercase tracking-wide text-xs">
-                {activeProductType?.name ?? "All"}
+              <span className="text-xs font-semibold uppercase tracking-[0.12em]">
+                {activeProductType?.name ?? "All Products"}
               </span>
-              <span>⌄</span>
+              <span className="text-orange-600">⌄</span>
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="w-[var(--radix-dropdown-menu-trigger-width)]">
-            <DropdownMenuItem asChild>
+          <DropdownMenuContent
+            align="start"
+            className="w-[var(--radix-dropdown-menu-trigger-width)] border-[#E9E4DC] bg-[#FDFCFB] p-1.5"
+          >
+            <DropdownMenuItem
+              asChild
+              className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+            >
               <Link href={getHref(null)} scroll={false}>
                 All
               </Link>
             </DropdownMenuItem>
 
             {productTypes.map((type) => (
-              <DropdownMenuItem key={type.id} asChild>
+              <DropdownMenuItem
+                key={type.id}
+                asChild
+                className="cursor-pointer rounded-md text-xs font-medium uppercase tracking-wide text-stone-600 focus:bg-orange-50 focus:text-orange-700"
+              >
                 <Link href={getHref(type.slug)} scroll={false}>
                   {type.name}
                 </Link>

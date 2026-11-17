@@ -5,7 +5,7 @@ import FavouritesClient from "@/components/my/MyFav";
 
 function FavouritesPageInner() {
   return (
-    <main className="container mx-auto min-h-screen px-4 py-8 md:px-6">
+    <main className="container mx-auto min-h-screen px-4 py-8 md:px-6 #F9F8F6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">
           My Favourites

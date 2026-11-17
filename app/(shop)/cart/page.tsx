@@ -13,7 +13,7 @@ async function CartPageInner() {
 
   if (!result.success) {
     return (
-      <main className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
+      <main className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center bg-[#F9F8F6]">
         <ShoppingBag className="mb-4 h-12 w-12 text-muted-foreground" />
 
         <h1 className="text-2xl font-semibold">
